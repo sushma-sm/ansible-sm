@@ -1,0 +1,19 @@
+---
+- name: Install Apache Web Server
+  hosts: webservers
+  become: yes  # Use sudo for root privileges
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+    
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present  # Make sure Apache is installed
+
+    - name: Ensure Apache is running
+      service:
+        name: apache2
+        state: started
+        enabled: yes  # Start Apache on boot
